@@ -1,3 +1,43 @@
 <template>
   <h1 class="text-3xl text-red-500 font-bold underline">Hello world!</h1>
 </template>
+<script>
+export default {
+  async mounted() {
+    await this.checkAuth()
+  },
+  methods: {
+    async checkAuth() {
+      try {
+        // Access Firebase Authentication instance from $fire or this.$firebase
+        const auth = this.$firebase.auth
+
+        // Wait for Firebase to initialize and check if there is a current user
+        await new Promise((resolve, reject) => {
+          const unsubscribe = auth.onAuthStateChanged((user) => {
+            unsubscribe() // Stop listening immediately after getting user info
+            resolve(user)
+          }, reject)
+        })
+          .then((user) => {
+            if (user) {
+              // User is signed in, log user details
+              console.log('Current User:', user)
+              // You can access user properties like user.uid, user.displayName, etc.
+            } else {
+              // No user is signed in, redirect to login page or handle accordingly
+              this.$router.push('/auth/login')
+            }
+          })
+          .catch((error) => {
+            console.error('Error checking authentication:', error)
+            // Handle error, such as displaying an error message
+          })
+      } catch (error) {
+        console.error('Error initializing Firebase:', error)
+        // Handle initialization error, if Firebase fails to initialize
+      }
+    },
+  },
+}
+</script>
