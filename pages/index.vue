@@ -9,13 +9,11 @@ export default {
   methods: {
     async checkAuth() {
       try {
-        // Access Firebase Authentication instance from $fire or this.$firebase
         const auth = this.$firebase.auth
 
-        // Wait for Firebase to initialize and check if there is a current user
         await new Promise((resolve, reject) => {
           const unsubscribe = auth.onAuthStateChanged((user) => {
-            unsubscribe() // Stop listening immediately after getting user info
+            unsubscribe() // Stop listening immediatel\after getting user info
             resolve(user)
           }, reject)
         })
