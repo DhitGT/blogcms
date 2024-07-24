@@ -13,13 +13,13 @@ export default {
 
         await new Promise((resolve, reject) => {
           const unsubscribe = auth.onAuthStateChanged((user) => {
-            unsubscribe() // Stop listening immediatel\after getting user info
+            unsubscribe()
             resolve(user)
           }, reject)
         })
           .then((user) => {
             if (user) {
-              // User is signed in, log user details
+             
               console.log('Current User:', user)
               // You can access user properties like user.uid, user.displayName, etc.
             } else {
