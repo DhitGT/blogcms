@@ -6,6 +6,9 @@ export default {
   async mounted() {
     await this.checkAuth()
   },
+
+  // adsasdasdasdasd
+
   methods: {
     async checkAuth() {
       try {
@@ -19,7 +22,7 @@ export default {
         })
           .then((user) => {
             if (user) {
-             
+
               console.log('Current User:', user)
               // You can access user properties like user.uid, user.displayName, etc.
             } else {
